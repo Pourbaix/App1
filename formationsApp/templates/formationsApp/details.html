@@ -1,0 +1,11 @@
+{% load static %}
+<html>
+    <link rel="stylesheet" href="{% static 'formationsApp/main.css' %}">
+    <body>
+        <h1>Formation details</h1>
+        <h2>{{ formation.title }}</h2>
+        <div class="formation_details">
+           <p>{{ formation.description }}</p>
+        </div>
+    </body>
+</html>

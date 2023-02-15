@@ -1,0 +1,89 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    min-width: 30%;
+    padding: 0 10px;
+}
+
+fieldset{
+    border: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label{ 
+    text-align: left;
+    width: 100%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+input{
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
+    padding: 5px;
+}
+
+input:hover{
+    transform: translateY(-1px);
+}
+
+textarea{
+    min-height: 200px;
+    overflow: scroll;
+    resize: none;
+}
+
+textarea:hover{
+    transform: translateY(-1px);
+}
+
+button {
+    margin-bottom: 15px;
+    font-size: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+button:hover{
+    transform: translateY(-1px);
+}
+
+.formation_list{
+    display: flex;
+    gap: 5px;
+}
+
+.formation_box{
+    display: flex;
+    flex-direction: column;
+    outline: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.formation_action{
+    display: flex;
+    gap: 5px;
+}

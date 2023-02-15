@@ -8,7 +8,7 @@ class User(models.Model):
     role = "formateur"
 
 class Formations(models.Model):
-    trainer = models.ForeignKey(User, on_delete=models.PROTECT)
+    # trainer = models.ForeignKey(User, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
 

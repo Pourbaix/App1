@@ -1,0 +1,21 @@
+{% load static %}
+<html>
+    <link rel="stylesheet" href="{% static 'formationsApp/main.css' %}">
+    <body>
+        <h1>Available formations</h1>
+        <div class="formation_list">
+            {% for formation in formations_list %}
+            <div class="formation_box">
+                <h3>
+                    {{ formation.title }}
+                </h3>
+                <div class="formation_action">    
+                    <a href="{% url 'formationsApp:updateFormation' formation.id %}">Modify</a>
+                    <a href="{% url 'formationsApp:details' formation.id %}">Details</a>
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+    </body>
+</html>
