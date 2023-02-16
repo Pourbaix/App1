@@ -14,5 +14,7 @@ urlpatterns = [
     path('<int:id_formation>/createSession/', views.createSession, name="createSession"), # Used to render HTML
     path('<int:id_formation>/addSession/', views.addSession, name="addSession"), # Used to send a request 
     path('<int:id_session>/deleteSession/', views.deleteSession, name="deleteSession"), # Used to send a request 
-    path('<int:id_session>/followSession/', views.followSession, name="followSession") # Used to send a request 
+    path('<int:id_session>/followSession/', views.followSession, name="followSession"), # Used to send a request
+    path('login', views.loginPage, name="login"), # Used to login the site  
+    path('doLogin', views.doLogin, name="doLogin") # Used to login the site  
 ]

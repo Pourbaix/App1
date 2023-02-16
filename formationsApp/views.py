@@ -1,81 +1,140 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 
 from .models import Formations, Session
 
 
 def create(request, **kwargs):
-    # This view is used to 
+    # Renders the html form to create or update a formation 
     if(not request.user.is_authenticated):
-        return HttpResponse("Authentificate to acces to the site !!")
+        return HttpResponse("Please authentificate to access the site !!")
     else:
-        if(kwargs):
-            id_formation = kwargs["id_formation"]
-            f = get_object_or_404(Formations, pk=id_formation)
-            return render(request, 'formationsApp/create.html', {"formation": f })
-        else:
-            return render(request, 'formationsApp/create.html', {})
+        if(isTrainer(request.user)):
+            if(kwargs):
+                id_formation = kwargs["id_formation"]
+                f = get_object_or_404(Formations, pk=id_formation)
+                return render(request, 'formationsApp/create.html', {"formation": f })
+            else:
+                return render(request, 'formationsApp/create.html', {})
+        else: 
+            return HttpResponse("You need to be a trainer to add formations!")
 
 def addForm(request, **kwargs):
+    # Adds or update a formation 
     if(not request.user.is_authenticated):
-        return HttpResponse("Authentificate to acces to the site !!")
+        return HttpResponse("Please authentificate to access the site !!")
     else:
-        if(kwargs):
-            id_formation = kwargs["id_formation"]
-            title = request.POST["title"]
-            description = request.POST["description"]
+        if(isTrainer(request.user)):
+            if(kwargs):
+                id_formation = kwargs["id_formation"]
+                title = request.POST["title"]
+                description = request.POST["description"]
 
-            f = Formations.objects.get(pk=id_formation)
-            f.title = title
-            f.description = description
-            f.save()
-        else:
-            title = request.POST["title"]
-            description = request.POST["description"]
+                f = Formations.objects.get(pk=id_formation)
+                f.title = title
+                f.description = description
+                f.save()
+            else:
+                title = request.POST["title"]
+                description = request.POST["description"]
 
-            f = Formations.objects.create(title=title, description=description)
-            f.save()
-        return HttpResponseRedirect(reverse('formationsApp:list'))
+                f = Formations.objects.create(title=title, description=description)
+                f.save()
+            return HttpResponseRedirect(reverse('formationsApp:list'))
+        else: 
+            return HttpResponse("You need to be a trainer to add formations!")
+        
 
 def list(request):
+    # Lists all the existing formations
     if(not request.user.is_authenticated):
-        return HttpResponse("Authentificate to acces to the site !!")
+        return HttpResponse("Please authentificate to access the site !!")
     else:
         formations_list =  Formations.objects.all()
-        return render(request, 'formationsApp/list.html', {"formations_list": formations_list})
+        return render(request, 'formationsApp/list.html', {"formations_list": formations_list, "isTrainer": isTrainer(request.user)})            
+        
 
 def details(request, id_formation):
+    # Renders the details page for a specific formation 
     if(not request.user.is_authenticated):
-        return HttpResponse("Authentificate to acces to the site !!")
+        return HttpResponse("Please authentificate to access the site !!")
     else:
         formation = Formations.objects.get(pk=id_formation)
-        return render(request, 'formationsApp/details.html', {"formation": formation})
+        return render(request, 'formationsApp/details.html', {"formation": formation, "isTrainer": isTrainer(request.user)})
 
 def delete(request, id_formation):
+    # Deletes a specific formation 
     if(not request.user.is_authenticated):
-        return HttpResponse("Authentificate to acces to the site !!")
+        return HttpResponse("Please authentificate to access the site !!")
     else:
-        Formations.objects.filter(pk=id_formation).delete()
-        return HttpResponseRedirect(reverse('formationsApp:list'))
+        if isTrainer(request.user):
+            Formations.objects.filter(pk=id_formation).delete()
+            return HttpResponseRedirect(reverse('formationsApp:list'))
+        else:
+            return HttpResponse("You need to be a trainer to remove formations!")
 
 def createSession(request, id_formation):
+    # Renders the form to create a session for a specific formation 
     if(not request.user.is_authenticated):
-        return HttpResponse("Authentificate to acces to the site !!")
+        return HttpResponse("Please authentificate to access the site !!")
     else:
-        return render(request, 'formationsApp/session.html', {"id_formation": id_formation})
+        if isTrainer(request.user):
+            return render(request, 'formationsApp/session.html', {"id_formation": id_formation})
+        else:
+            return HttpResponse("You need to be a trainer to remove formations!")
 
 
 def addSession(request, id_formation):
-    f =  get_object_or_404(Formations, pk=id_formation)
-    f.session_set.create(event_date=request.POST["dateTime"], max_student_nbr=request.POST["studentNbr"], place=request.POST["place"])
-    f.save()
-    return HttpResponseRedirect(reverse("formationsApp:details", args=[f.id]))
+    # Creates a session for a specific formation 
+
+    if(not request.user.is_authenticated):
+        return HttpResponse("Please authentificate to access the site !!")
+    else:
+        if isTrainer(request.user):
+            f =  get_object_or_404(Formations, pk=id_formation)
+            f.session_set.create(event_date=request.POST["dateTime"], max_student_nbr=request.POST["studentNbr"], place=request.POST["place"])
+            f.save()
+            return HttpResponseRedirect(reverse("formationsApp:details", args=[f.id]))
+        else:
+            return HttpResponse("You need to be a trainer to add sessions!")
 
 def deleteSession(request, id_session):
-    s = get_object_or_404(Session, pk=id_session)
-    s.delete()
-    return HttpResponse("Session Deleted !")
+    # Deletes a specific session
+
+    if(not request.user.is_authenticated):
+        return HttpResponse("Please authentificate to access the site !!")
+    else:
+        if isTrainer(request.user):
+            s = get_object_or_404(Session, pk=id_session)
+            s.delete()
+            return HttpResponse("Session Deleted !")
+        else:
+            return HttpResponse("You need to be a trainer to add sessions!")
+
 
 def followSession(request, id_session):
+    # Allows a student to follow a specific session  
     return HttpResponse("Followed this formation.")
+
+def loginPage(request):
+    # Renders the login page 
+    return render(request, 'formationsApp/login.html')
+
+def doLogin(request):
+    # Executes the login procedure 
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect(reverse("formationsApp:list"))
+    else: 
+        print(user)
+        return render(request, 'formationsApp/login.html', {"error": True})
+
+def isTrainer(user):
+    # Returns true if the user is part of the 'Trainers' group => Check permissions
+    return "Trainers" in user.groups.values_list('name', flat = True)
