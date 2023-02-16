@@ -5,7 +5,22 @@
         <h1>Formation details</h1>
         <h2>{{ formation.title }}</h2>
         <div class="formation_details">
-           <p>{{ formation.description }}</p>
+            <div class="formation_details_description">
+                <h3>Formation description</h3>
+                <p>{{ formation.description }}</p>
+            </div>
+            <div class="formation_details_sessions">
+                {% for session in formation.session_set.all %}
+                <div class="formation_session_element">
+                    <p>{{ session.event_date }}</p>
+                    <p>{{ session.place }}</p>
+                    <a href="{% url 'formationsApp:followSession' session.id %}" class="action details">Follow</a>
+                    <a href="{% url 'formationsApp:deleteSession' session.id %}" class="action"><img src="{% static 'formationsApp/delete.svg' %}" alt="delete the formation logo" class="trash"></a>
+                </div>
+                {% endfor %}
+                <a href="{% url 'formationsApp:createSession' formation.id%}" class="action create">Add session</a>
+            </div>
         </div>
+        <div class="back_sign"><a href="{% url 'formationsApp:list' %}">BACK</a></div>
     </body>
 </html>

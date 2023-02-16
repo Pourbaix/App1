@@ -1,11 +1,13 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
 
-class User(models.Model):
-    first_name = models.CharField(max_length=30)
-    second_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=30)
-    role = "formateur"
+# class User(models.Model):
+#     first_name = models.CharField(max_length=30)
+#     second_name = models.CharField(max_length=30)
+#     email = models.CharField(max_length=30)
+#     role = "formateur"
+
 
 class Formations(models.Model):
     # trainer = models.ForeignKey(User, on_delete=models.PROTECT)

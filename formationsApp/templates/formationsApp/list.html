@@ -3,15 +3,17 @@
     <link rel="stylesheet" href="{% static 'formationsApp/main.css' %}">
     <body>
         <h1>Available formations</h1>
+        <a href="{% url 'formationsApp:createFormation' %}" class="action create">Create a formation</a>
         <div class="formation_list">
             {% for formation in formations_list %}
             <div class="formation_box">
-                <h3>
+                <h3 class="box_title">
                     {{ formation.title }}
                 </h3>
                 <div class="formation_action">    
-                    <a href="{% url 'formationsApp:updateFormation' formation.id %}">Modify</a>
-                    <a href="{% url 'formationsApp:details' formation.id %}">Details</a>
+                    <a href="{% url 'formationsApp:updateFormation' formation.id %}" class="action modify">Modify</a>
+                    <a href="{% url 'formationsApp:details' formation.id %}" class="action details">Details</a>
+                    <a href="{% url 'formationsApp:delete' formation.id %}" class="action"><img src="{% static 'formationsApp/delete.svg' %}" alt="delete the formation logo" class="trash"></a>
                 </div>
             </div>
             

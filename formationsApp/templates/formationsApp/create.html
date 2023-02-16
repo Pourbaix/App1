@@ -12,7 +12,10 @@
                 <label for="description">Description:</label>
                 <textarea type="text" placeholder="Enter a description..." id="description" name="description">{{ formation.description }}</textarea>
             </fieldset>
-            <button type="submit">Save</button>
+            <div class="buttons_container">
+                <a href="{% url 'formationsApp:list'%}" class="cancel_button">Cancel</a>
+                <button type="submit">Save</button>
+            </div>
         </form>
         {% else %}
         <h1>Create a new course</h1>
@@ -24,7 +27,11 @@
                 <label for="description">Description:</label>
                 <textarea type="text" placeholder="Enter a description..." id="description" name="description"></textarea>
             </fieldset>
-            <button type="submit">Save</button>
+            <div class="buttons_container">
+                <a href="{% url 'formationsApp:list'%}" class="cancel_button">Cancel</a>
+                <button type="submit">Save</button>
+            </div>
+
         </form>
         {% endif %}
     </body>
