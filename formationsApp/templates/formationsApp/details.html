@@ -2,19 +2,30 @@
 <html>
     <link rel="stylesheet" href="{% static 'formationsApp/main.css' %}">
     <body>
-        <h1>Formation details</h1>
-        <h2>{{ formation.title }}</h2>
+        <h1>{{ formation.title }}</h1>
         <div class="formation_details">
             <div class="formation_details_description">
-                <h3>Formation description</h3>
+                <h3>Description:</h3>
                 <p>{{ formation.description }}</p>
             </div>
             <div class="formation_details_sessions">
+                <h3>List of sessions:</h3>
+                {% if not formation.session_set.all %}
+                <p>No sessions planed yet!</p>
+                {% endif %}
                 {% for session in formation.session_set.all %}
                 <div class="formation_session_element">
                     <p>{{ session.event_date }}</p>
                     <p>{{ session.place }}</p>
-                    <a href="{% url 'formationsApp:followSession' session.id %}" class="action details">Follow</a>
+                    {% if session in user.session_set.all %}
+                    <a href="{% url 'formationsApp:removeFromSession' session.id %}" class="action details">Following</a>
+                    {% else %}
+                    {% if session.students.all|length == session.max_student_nbr%}
+                    <button class="action full" disabled>Full</button>
+                    {% else %}
+                    <a href="{% url 'formationsApp:followSession' session.id %}" class="action not_following">Follow</a>
+                    {% endif %}
+                    {% endif %}
                     {% if isTrainer %}
                     <a href="{% url 'formationsApp:deleteSession' session.id %}" class="action"><img src="{% static 'formationsApp/delete.svg' %}" alt="delete the formation logo" class="trash"></a>
                     {% endif %}
@@ -26,5 +37,6 @@
             </div>
         </div>
         <div class="back_sign"><a href="{% url 'formationsApp:list' %}">BACK</a></div>
+        <div class="logout"><a href="{% url 'formationsApp:doLogout' %}">LOG OUT</a></div>
     </body>
 </html>

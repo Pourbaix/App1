@@ -3,6 +3,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100vw;
+    padding-top: 30px;
 }
 
 h1 {
@@ -121,6 +122,21 @@ button:hover{
     background-color: green;
     color: white;
 }
+.not_following {
+    background-color: transparent;
+    color: purple;
+}
+
+.full {
+    background: red;
+    color: white;
+    cursor: not-allowed; 
+}
+
+.full:hover {
+    transform: scale(1);
+}
+
 .create {
     margin-bottom: 10px;
     color: green;
@@ -156,13 +172,13 @@ button:hover{
     display: flex;
     justify-content: center;
     width: 70%;
-    outline: 1px solid green; 
     padding: 20px;
 }
 
 .formation_details_description{
     width: 35%;
-    outline: 1px solid red; 
+    outline: 1px solid rgba(0, 0, 0, 0.2); 
+    border-radius: 3px;
     padding: 20px;
 }
 
@@ -185,12 +201,18 @@ button:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
 }
 
 .formation_details_sessions > a {
     margin-top: 15px;
     margin-bottom: 0;
+}
+
+.formation_details_sessions > h3 {
+    margin: 0;
+    margin-bottom: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .formation_session_element{
@@ -217,10 +239,34 @@ button:hover{
 
 .back_sign > a{
     color: red;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.back_sign > a::before{
+    content:"<"
 }
 
 .error{
     color: red;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
+.logout{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
 
+.logout > a {
+    color: green;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+@media screen and (max-width: 800px){
+    .formation_details{
+        width: 100%;
+    }
+}
