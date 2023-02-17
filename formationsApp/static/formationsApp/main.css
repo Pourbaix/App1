@@ -75,7 +75,7 @@ button:hover{
 .formation_list{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     max-height: 80vh;
     overflow: scroll;
 }
@@ -86,6 +86,7 @@ button:hover{
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .box_title{
@@ -138,7 +139,7 @@ button:hover{
 }
 
 .create {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     color: green;
 }
 
@@ -229,6 +230,42 @@ button:hover{
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.session_details {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25px;
+}
+
+.session_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.student_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    padding: 15px;
+    max-height: 60vh;
+    overflow: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.student_list > h3 {
+    margin: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.student_list > p {
+    margin: 0;
 }
 
 .back_sign{

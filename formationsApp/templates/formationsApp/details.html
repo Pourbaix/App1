@@ -27,7 +27,8 @@
                     {% endif %}
                     {% endif %}
                     {% if isTrainer %}
-                    <a href="{% url 'formationsApp:deleteSession' session.id %}" class="action"><img src="{% static 'formationsApp/delete.svg' %}" alt="delete the formation logo" class="trash"></a>
+                    <a href="{% url 'formationsApp:sessionDetails' session.id %}" class="action details">Details</a>
+                    <a href="{% url 'formationsApp:deleteSession' session.id %}" class="action"><img src="{% static 'formationsApp/delete.svg' %}" alt="delete the session logo" class="trash"></a>
                     {% endif %}
                 </div>
                 {% endfor %}

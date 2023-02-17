@@ -128,6 +128,18 @@ def followSession(request, id_session):
     formation = Session.objects.get(pk=id_session).formation
     return render(request, 'formationsApp/details.html', {"formation": formation, "isTrainer": isTrainer(request.user), "user": request.user})
 
+def sessionDetails(request, id_session):
+    # Gives details about the session for the trainers 
+
+    if(not request.user.is_authenticated):
+        return HttpResponse("Please authentificate to access the site !!")
+    if isTrainer(request.user):
+        session = Session.objects.get(pk=id_session)
+        return render(request, 'formationsApp/sessionDetails.html', {"session": session})
+    else:
+        return HttpResponse("You need to be a trainer to view session details!")
+
+
 def removeFromSession(request, id_session):
     if(not request.user.is_authenticated):
         return HttpResponse("Please authentificate to access the site !!")

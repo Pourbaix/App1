@@ -1,0 +1,21 @@
+{% load static %}
+<html>
+    <link rel="stylesheet" href="{% static 'formationsApp/main.css' %}">
+    <body>
+        <h1>Session for the {{ session.event_date }}</h1>
+        <div class="session_details">
+            <div class="session_info">
+                <p><b>Number of students following:</b> {{ session.students.all|length }}</p>
+                <p><b>Location:</b> {{ session.place }}</p>
+            </div>
+            <div class="student_list">
+                <h3>List of students following:</h3>
+                {% for student in session.students.all%}
+                <p>{{ student.username }} {{ student.first_name }} {{ student.last_name }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="back_sign"><a href="{% url 'formationsApp:list' %}">BACK</a></div>
+        <div class="logout"><a href="{% url 'formationsApp:doLogout' %}">LOG OUT</a></div>
+    </body>
+</html>
