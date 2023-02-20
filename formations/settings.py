@@ -104,6 +104,8 @@ AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.ModelBackend',
 ]
 
+LOGOUT_REDIRECT_URL = "/formations/login"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
